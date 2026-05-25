@@ -1,3 +1,6 @@
+import math
+
+
 points = []
 
 
@@ -17,7 +20,7 @@ def to_xy(i, j):
 
 
 # generates and returns 1 frame as a string that can be printed
-def generate_frame():
+def generate_frame(t):
     print(points)
     frame = ""
     for i in range(0, HEIGHT):
@@ -25,9 +28,9 @@ def generate_frame():
         for j in range(0, WIDTH):
             (x, y) = to_xy(i, j)
             if round(pow(x, 2)) + round(pow(y, 2)) < 256:
-                line = line + "##"
+                line = line + f"\033[48;2;{round(127*math.sin(t/(2*math.pi))+127)};{round(127*math.sin((t/(2*math.pi))+3.3)+127)};{round(127*math.sin((t/2*math.pi)+6.6)+127)}m  "
             else:
-                line = line + "  "
+                line = line + "\033[48;2;0;0;0m  "
         frame = frame + line + "\n"
     return frame
 
