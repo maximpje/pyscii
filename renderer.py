@@ -11,8 +11,8 @@ def setup(h, w):
 
 # turns i,j pair into x y coordinate system with correction for font dimensions
 def to_xy(i, j):
-    x = (j - ((WIDTH+1)/2)) / (35/45)
-    y = -(i - HEIGHT) - ((HEIGHT+1)/2)
+    x = i - (WIDTH/2)
+    y = (HEIGHT/2) - j
     return (x, y)
 
 
@@ -24,12 +24,10 @@ def generate_frame():
         line = ""
         for j in range(0, WIDTH):
             (x, y) = to_xy(i, j)
-            for p in points:
-                print(f"{p}, {(round(x), round(y))}")
-                if p == (round(x), round(y)):
-                    line = line + "###"
-                else:
-                    line = line + "   "
+            if round(pow(x, 2)) + round(pow(y, 2)) < 256:
+                line = line + "##"
+            else:
+                line = line + "  "
         frame = frame + line + "\n"
     return frame
 
